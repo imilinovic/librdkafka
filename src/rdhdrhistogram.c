@@ -202,8 +202,11 @@ static RD_INLINE int64_t bitLen(int64_t x) {
 static RD_INLINE int32_t rd_hdr_getBucketIndex(const rd_hdr_histogram_t *hdr,
                                                int64_t v) {
         int64_t pow2Ceiling = bitLen(v | hdr->subBucketMask);
-        return (int32_t)(pow2Ceiling - (int64_t)hdr->unitMagnitude -
-                         (int64_t)(hdr->subBucketHalfCountMagnitude + 1));
+        int64_t result      = pow2Ceiling - (int64_t)hdr->unitMagnitude -
+                         (int64_t)(hdr->subBucketHalfCountMagnitude + 1);
+        if (unlikely(result < 0))
+                result = 0;
+        return (int32_t)result;
 }
 
 static RD_INLINE int32_t rd_hdr_getSubBucketIdx(const rd_hdr_histogram_t *hdr,
