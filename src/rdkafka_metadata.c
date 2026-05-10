@@ -1136,7 +1136,7 @@ done:
          * to the caller. */
         *mdip = mdi;
 
-        return RD_KAFKA_RESP_ERR_NO_ERROR;
+        return err;
 
 err_parse:
         err = rkbuf->rkbuf_err;
