@@ -97,7 +97,7 @@ void rd_kafka_q_init0(rd_kafka_q_t *rkq,
         rkq->rkq_qio                = NULL;
         rkq->rkq_serve              = NULL;
         rkq->rkq_opaque             = NULL;
-        rkq->rkq_ts_last_poll_start = 0;
+        rkq->rkq_ts_last_poll_start = rk ? rk->rk_ts_created : 0;
         rkq->rkq_ts_last_poll_end   = 0;
         mtx_init(&rkq->rkq_lock, mtx_plain);
         cnd_init(&rkq->rkq_cond);
